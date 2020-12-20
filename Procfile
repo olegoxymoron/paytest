@@ -1,1 +1,1 @@
-flask translate compile; gunicorn flask-pay-test17:app
+web: flask run
