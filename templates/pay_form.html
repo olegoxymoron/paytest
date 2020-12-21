@@ -6,7 +6,8 @@
       <input type="hidden" name="shop_id" value="{{ data.shop_id }}"/>
       <input type="hidden" name="sign" value="{{ data.sign }} 6ada8f"/>
       <input type="hidden" name="shop_order_id" value="{{ data.shop_order_id }}"/>
-      <input type="submit" style="visibility: hidden;" name="description" value="Test invoice"/>
+      <input type="hidden" name="description" value="{{ data.description }}"/>
+      <input type="submit" style="visibility: hidden;">
     </form>
     <script type="text/javascript">
       window.onload=function(){
