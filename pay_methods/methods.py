@@ -2,6 +2,8 @@ from hashlib import sha256
 from collections import OrderedDict
 import requests, json
 from flask import render_template, redirect
+from datetime import datetime
+import os
 
 currencies = {
     'USD': '840',
@@ -42,6 +44,16 @@ def invoice(params):
         resp = render_template('invoice_form.html', data=invoice_resp)
     else:
         resp = invoice_resp['message']
+
+    now = datetime.now()
+    dt_string = now.strftime('%d/%m/%Y_%H:%M:%S')
+
+    f = open('logs.txt', 'a')
+    if os.stat('logs.txt').st_size == 0:
+        f.write('\t'.join(['date_time', 'amount', 'currency', 'shop_id', 'shop_order_id', 'method', 'payway', 'error_code', 'message'])+'\n')
+    f.write('\t'.join([dt_string, params['amount'], params['currency'], params['shop_id'], params['shop_order_id'], 'invoice', params['payway'], str(invoice_resp['error_code']), str(invoice_resp['message'])])+'\n')
+    f.close()
+    
     return resp
 
 
@@ -65,12 +77,21 @@ def bill(params):
 
     response = requests.post(url, json=params, headers=headers)
 
-    resp_ = response.json()
-    if resp_['error_code'] == 0:
-        url = resp_['data']['url']
+    bill_response = response.json()
+    if bill_response['error_code'] == 0:
+        url = bill_response['data']['url']
         resp = redirect(url, code=302)
     else:
-        resp = resp_['message']
+        resp = bill_response['message']
+
+    now = datetime.now()
+    dt_string = now.strftime('%d/%m/%Y_%H:%M:%S')
+
+    f = open('logs.txt', 'a')
+    if os.stat('logs.txt').st_size == 0:
+        f.write('\t'.join(['date_time', 'amount', 'currency', 'shop_id', 'shop_order_id', 'method', 'payway', 'error_code', 'message'])+'\n')
+    f.write('\t'.join([dt_string, params['shop_amount'], params['payer_currency'], params['shop_id'], params['shop_order_id'], 'bill', '', str(bill_response['error_code']), str(bill_response['message'])])+'\n')
+    f.close()
 
     return resp
 

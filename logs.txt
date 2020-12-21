@@ -1,0 +1,4 @@
+date_time	amount	currency	shop_id	shop_order_id	method	payway	error_code	message
+21/12/2020_19:58:34	3	643	5	4126	invoice	payeer_rub	3	Payway (alias = payeer_rub) is not available for shop
+21/12/2020_19:58:47	3	840	5	4126	bill		0	Ok
+21/12/2020_19:59:14	0.5	840	5	4126	bill		4	Payer amount is too small, min: 1.0
