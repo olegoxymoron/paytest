@@ -26,11 +26,16 @@ def pay():
     }
 
     if currency == 'RUB':
-        resp = m.invoice(params)
+        resp_ = m.invoice(params)
     elif currency == 'EUR':
         resp = m.pay(params)
     elif currency == 'USD':
-        url = m.bill(params)['data']['url']
-        resp = redirect(url, code=302)
+        resp_ = m.bill(params).json()
+
+        if resp_['error_code'] == 0:
+            url = resp_['data']['url']
+            resp = redirect(url, code=302)
+        else:
+            resp = resp_['message']
 
     return resp

@@ -1,6 +1,7 @@
 from hashlib import sha256
 from collections import OrderedDict
 import requests
+from flask import render_template
 
 currencies = {
     'USD': '840',
@@ -33,7 +34,8 @@ def invoice(params):
 
     response = requests.post(url, json=params, headers=headers)
 
-    print(response.content)
+    print(response.content.decode('utf-8'))
+
 
 def bill(params):
     url = 'https://core.piastrix.com/bill/create'
@@ -58,7 +60,7 @@ def bill(params):
 
     response = requests.post(url, json=params, headers=headers)
 
-    return response.json()
+    return response
 
 def pay(params):
     url = 'https://pay.piastrix.com/ru/pay'
@@ -71,11 +73,11 @@ def pay(params):
     required_params = params.copy()
     del required_params['description']
     
+    print(required_params)
     required_params = OrderedDict(sorted(required_params.items()))
     sign_str = ':'.join(required_params.values()) + parameters['secretKey']
     params['sign'] = sha256(str.encode(sign_str)).hexdigest()
 
-    response = requests.post(url, json=params)
+    print(sign_str)
 
-    print(response.content)
-    return response.content
+    return render_template('pay_form.html', data=params)
