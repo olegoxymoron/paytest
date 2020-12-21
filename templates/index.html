@@ -4,12 +4,12 @@
   </head>
   <body>
     <div class='container'>
-      <div class='row'>
-        <div class='col-4 offset-4' align='center'>
-          <form method='POST' action='/pay'>
+      <div class='row justify-content-md-center justify-content-center'>
+        <div class='col-col-4 col-md-auto' align='center'>
+          <form method='POST' enctype="application/json" action='/pay'>
             <div class="form-group">
               <small>Enter amount</small>
-              <input type='text' placeholder="1234.56" class='form-control' name='amount' id='amount' pattern='(?!0+(?:\.0+)?$)\d{0,6}(?:\.\d\d?)?' required/>
+              <input type="number" placeholder="1234.56" class="form-control" name="amount" id="amount" step="0.01" min="0.01" max="999999.99" required="">
               <small class='form-text text-muted'>Amounts only from 0.01 to 999999.99</small>
             </div>
             <div class='form-group'>
