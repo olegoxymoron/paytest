@@ -1,1 +1,1 @@
-web: flask app:app
+web: flask flask-pay-test17:app
