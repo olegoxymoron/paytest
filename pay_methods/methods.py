@@ -14,7 +14,7 @@ currencies = {
 parameters = {
     'shop_id': '5',
     'secretKey': 'SecretKey01',
-    'payway': 'payeer_rub',
+    'payway': 'advcash_rub',
     'shop_order_id': '4126'
 }
 
