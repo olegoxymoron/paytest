@@ -90,7 +90,7 @@ def bill(params):
     f = open('logs.txt', 'a')
     if os.stat('logs.txt').st_size == 0:
         f.write('\t'.join(['date_time', 'amount', 'currency', 'shop_id', 'shop_order_id', 'method', 'payway', 'error_code', 'message'])+'\n')
-    f.write('\t'.join([dt_string, params['shop_amount'], params['payer_currency'], params['shop_id'], params['shop_order_id'], 'bill', '\t', str(bill_response['error_code']), str(bill_response['message'])])+'\n')
+    f.write('\t'.join([dt_string, params['shop_amount'], params['payer_currency'], params['shop_id'], params['shop_order_id'], 'bill', '', str(bill_response['error_code']), str(bill_response['message'])])+'\n')
     f.close()
 
     return resp
