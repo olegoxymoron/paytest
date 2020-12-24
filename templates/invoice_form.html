@@ -1,11 +1,9 @@
 <html>
   <body>
-    <form name="Invoice" method="{{ data.data.url }}" action="{{ data.data.method }}" accept-charset="UTF-8">
-      <input type="hidden" name="lang" value="{{ data.data.data.lang }}"/> 
-      <input type="hidden" name="m_curorderid" value="{{ data.data.data.m_curorderid }}"/> 
-      <input type="hidden" name="m_historyid" value="{{ data.data.data.m_historyid }}"/> 
-      <input type="hidden" name="m_historytm" value="{{ data.data.data.m_historytm }}"/>
-      <input type="hidden" name="referer" value="{{ data.data.data.referer }}"/>
+    <form name="Invoice" method="{{ data.data.method }}" action="{{ data.data.url }}" accept-charset="UTF-8">
+      {% for key in data.data.data %}
+        <input type="hidden" name="{{ key }}" value="{{ data.data.data[key] }}"/>
+      {% endfor %}
       <input type="submit" style="visibility: hidden;">
     </form>
     <script type="text/javascript">

@@ -39,7 +39,7 @@ def invoice(params):
     response = requests.post(url, json=params, headers=headers)
     invoice_resp = response.content.decode('utf-8')
     invoice_resp = json.loads(invoice_resp)
-
+    print(invoice_resp)
     if invoice_resp['error_code'] == 0:
         resp = render_template('invoice_form.html', data=invoice_resp)
     else:
